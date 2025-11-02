@@ -16,7 +16,7 @@
     <header>
         <nav class="container">
            <div class="logo">
-    <img src="img/logo.1.png" alt="Logo Toca da Esfiha" class="logo-img">
+    <img src="img/Gemini_Generated_Image_w1zk2iw1zk2iw1zk-removebg-preview.png" alt="Logo Toca da Esfiha" class="logo-img">
 </div>
             <div class="contato-carrinho">
                 <span class="font-corpo telefone"></span>
@@ -25,43 +25,50 @@
         </nav>
     </header>
 
+<nav id="quick-menu" class="quick-menu">
+    <div class="container">
+        <a href="#esfihas-salgadas">Esfihas Salgadas</a>
+        <a href="#esfihas-doces">Esfihas Doces</a>
+        <a href="#salgados">Salgados</a> <a href="#mini-pizza">mini-pizza</a> <a href="#pizzas-grandes">pizzas-grandes</a> <a href="#bebidas">Bebidas</a>
+    </div>
+</nav>
     <main class="container">
         
         <section id="cardapio-section">
             <div class="destaque">
-                <h2 class="font-titulo">CARDÁPIO COMPLETO</h2>
-                <p>Selecione e saboreie o prazer de uma esfiha, pizza ou salgado feito na hora. Qualidade e sabor que só a Toca tem!</p>
+                <h2 class="font-titulo">Bem-vindo(a) à Toca da Esfiha!</h2>
+                <p class="font-corpo">Escolha os itens abaixo e monte seu pedido de forma rápida e prática para envio via WhatsApp.</p>
             </div>
             
             <div id="cardapio-container">
                 </div>
         </section>
 
-        <section id="checkout-section" class="checkout-form" style="display: none;">
-            <h2 class="font-titulo titulo-checkout">Finalizar Pedido</h2>
-            <p class="font-corpo resumo-pedido">Revise seu pedido antes de enviar.</p>
+        <section id="checkout-section" style="display: none;">
+            <h1 class="font-titulo">Finalizar Pedido</h1>
             
             <div id="resumo-carrinho" class="resumo-carrinho">
                 </div>
 
-            <form id="client-data-form">
-                <h3 class="font-titulo">Dados para Entrega</h3>
-                
+            <form id="client-data-form" class="client-data-form">
+                <h3 class="font-titulo">Seus Dados</h3>
                 <label for="nome">Nome Completo:</label>
                 <input type="text" id="nome" name="nome" required>
 
-                <label for="telefone_cliente">Telefone (DDD + Número):</label>
-                <input type="tel" id="telefone_cliente" name="telefone_cliente" placeholder="Ex: 73981139131" required>
-
+                <label for="telefone_cliente">Telefone (c/ WhatsApp):</label>
+                <input type="tel" id="telefone_cliente" name="telefone_cliente" required>
+                
+                <h3 class="font-titulo">Endereço de Entrega</h3>
+                
+                <label for="bairro">Bairro:</label>
+                <input type="text" id="bairro" name="bairro" required>
+                
                 <label for="rua">Rua/Avenida:</label>
                 <input type="text" id="rua" name="rua" required>
 
                 <label for="numero">Número:</label>
                 <input type="text" id="numero" name="numero" required>
                 
-                <label for="bairro">Bairro:</label>
-                <input type="text" id="bairro" name="bairro" required>
-
                 <label for="complemento">Complemento/Referência (Opcional):</label>
                 <input type="text" id="complemento" name="complemento">
 

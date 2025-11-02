@@ -44,7 +44,7 @@ body {
 
 /* --- 2. CABEÇALHO (Header) --- */
 header {
-    background-color: var(--cor-branco);
+    background-color: var(--cor-fundo);
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     padding: 15px 0;
     position: sticky;
@@ -447,4 +447,42 @@ footer {
     border: 1px solid var(--cor-borda);
     font-family: var(--font-corpo);
     font-size: 14px;
+}
+/* --- NOVO: BARRA DE NAVEGAÇÃO RÁPIDA --- */
+
+.quick-menu {
+    position: sticky; /* Fixa a barra ao topo */
+    top: 0;          /* Mantém no topo da janela */
+    z-index: 999;    /* Garante que fique acima do conteúdo */
+    background-color: var(--cor-fundo); /* Fundo claro do site */
+    border-bottom: 1px solid var(--cor-borda);
+    padding: 8px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-x: auto; /* Permite rolar horizontalmente em telas pequenas */
+    white-space: nowrap; /* Impede a quebra de linha dos links */
+}
+
+.quick-menu .container {
+    display: flex;
+    justify-content: flex-start; /* Alinha os links à esquerda */
+    gap: 12px;
+    padding: 0 15px;
+}
+
+.quick-menu a {
+    text-decoration: none;
+    color: var(--cor-texto-titulo);
+    font-family: var(--font-corpo);
+    font-weight: 500;
+    font-size: 13px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    transition: background-color 0.3s, color 0.3s;
+    border: 1px solid transparent;
+}
+
+.quick-menu a:hover,
+.quick-menu a.active {
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
 }

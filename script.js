@@ -1,4 +1,4 @@
-/* script.js - Versão Final 3.2: Suporte a Opções de Sabor/Marca */
+/* script.js - Versão Final 3.4: Correção Definitiva do Scroll Suave e IDs */
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -75,13 +75,12 @@ document.addEventListener('DOMContentLoaded', () => {
             { nome: "PASTEL DE CARNE SECA", descricao: "Queijo, banana da terra e catupiry.", preco: 18.00 },
             { nome: "PASTEL DE NUTELLA COM BANANA DA TERRA", descricao: "", preco: 18.00 },
         ],
-        // --- ITENS DE BEBIDA MODIFICADOS PARA TER OPÇÕES ---
         bebidas: [
             { 
                 nome: "Refrigerante Lata", 
                 descricao: "Escolha Coca-Cola, Guaraná ou Sprite.", 
                 preco: 9.00,
-                opcoes: ['Coca-Cola', 'Guaraná', 'Sprite'] // NOVO: Opções de Refrigerante
+                opcoes: ['Coca-Cola', 'Guaraná', 'Sprite']
             },
             { nome: "Refrigerante KS 290ml", descricao: "", preco: 8.00 },
             { nome: "Água Mineral sem Gás 500ml", descricao: "", preco: 5.00 },
@@ -91,13 +90,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 nome: "Suco Polpa 1L", 
                 descricao: "Escolha o sabor da polpa.", 
                 preco: 12.50,
-                opcoes: ['Graviola', 'Cacau', 'Cajá', 'Cupuaçu', 'Maracujá', 'Manga'] // NOVO: Opções de Suco 1L
+                opcoes: ['Graviola', 'Cacau', 'Cajá', 'Cupuaçu', 'Maracujá', 'Manga']
             },
             { 
                 nome: "Suco Polpa 500ml", 
                 descricao: "Escolha o sabor da polpa.", 
                 preco: 25.00,
-                opcoes: ['Graviola', 'Cacau', 'Cajá', 'Cupuaçu', 'Maracujá', 'Manga'] // NOVO: Opções de Suco 500ml
+                opcoes: ['Graviola', 'Cacau', 'Cajá', 'Cupuaçu', 'Maracujá', 'Manga']
             },
             { nome: "Corona Long Neck", descricao: "", preco: 13.00 },
             { nome: "Heineken 600ml", descricao: "", preco: 20.00 },
@@ -118,13 +117,13 @@ document.addEventListener('DOMContentLoaded', () => {
         { titulo: "1. Esfihas Salgadas", lista: cardapioData.esfihasSalgadas },
         { titulo: "2. Esfihas Doces", lista: cardapioData.esfihasDoces },
         { titulo: "3. Salgados (Kibes e Pastéis)", lista: cardapioData.salgados },
-        { titulo: "4. Pizzas Broto ", lista: cardapioData.pizzasBroto },
-        { titulo: "5. Pizzas Grandes ", lista: cardapioData.pizzasGrandes },
+        { titulo: "4. Pizzas Broto (R$ 23-25)", lista: cardapioData.pizzasBroto },
+        { titulo: "5. Pizzas Grandes (R$ 80-98)", lista: cardapioData.pizzasGrandes },
         { titulo: "6. Bebidas", lista: cardapioData.bebidas },
         { titulo: "Itens Não Disponíveis", lista: cardapioData.indisponiveis }
     ];
     
-    // --- 2. GESTÃO DO CARRINHO (Completa) ---
+    // --- 2. GESTÃO DO CARRINHO ---
 
     function calcularTotalCarrinho() {
         return Object.values(carrinho).reduce((sum, item) => sum + item.total, 0);
@@ -137,12 +136,9 @@ document.addEventListener('DOMContentLoaded', () => {
         botaoCarrinho.textContent = `Carrinho (${totalItens}) Total: ${formatarMoeda(totalValor)}`;
     }
 
-    // NOVO: Função auxiliar para obter a contagem total de um produto base no carrinho
     function getContagemBaseProduto(baseNome) {
         let total = 0;
-        // Itera sobre todas as chaves do carrinho
         for (const key in carrinho) {
-            // Se o nome do item no carrinho começar com o nome base (ex: "Refrigerante Lata")
             if (key.startsWith(baseNome)) {
                 total += carrinho[key].quantidade;
             }
@@ -150,9 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return total;
     }
 
-    // NOVO: Função que atualiza o contador visual no cardápio
     function atualizarContadorItemVisual(produtoNomeBase) {
-        // Usamos .replace(/"/g, '\\"') para garantir que nomes com aspas funcionem como seletor
         const spanContador = document.querySelector(`.contador-item[data-item="${produtoNomeBase.replace(/"/g, '\\"')}"]`);
         
         if (spanContador) {
@@ -167,9 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // FUNÇÃO SIMPLIFICADA DE ADICIONAR (chamada pelo listener que resolve as opções)
     function adicionarAoCarrinho(produto) {
-        // NOTE: 'produto.nome' é a chave ÚNICA (inclui o sabor se for o caso)
         if (carrinho[produto.nome]) {
             carrinho[produto.nome].quantidade++;
             carrinho[produto.nome].total += produto.preco;
@@ -182,10 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         atualizarBotaoCarrinho();
-        // A atualização visual do contador é chamada pelo listener do botão
     }
     
-    // --- 3. LÓGICA DE VISUALIZAÇÃO (CARDÁPIO vs CHECKOUT) ---
+    // --- 3. LÓGICA DE VISUALIZAÇÃO ---
 
     const cardapioSection = document.getElementById('cardapio-section');
     const checkoutSection = document.getElementById('checkout-section');
@@ -245,7 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
         (pos) => {
             const lat = pos.coords.latitude.toFixed(8);
             const lon = pos.coords.longitude.toFixed(8);
-            // Formato de link do Google Maps para facilitar o clique
             localizacaoCliente = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
             console.log(`📍 Localização precisa: ${lat}, ${lon}`);
             status.textContent = "✅ Localização capturada! (Pronto para enviar)";
@@ -275,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // --- 4. GERAÇÃO DA MENSAGEM WHATSAPP (Aprimorada com Codificação Standard) ---
+    // --- 4. GERAÇÃO DA MENSAGEM WHATSAPP ---
 
     function gerarMensagemWhatsApp(event) {
         event.preventDefault();
@@ -296,7 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- Lista de Itens com valores individuais ---
         let listaItensTexto = "";
         Object.values(carrinho).forEach(item => {
-            // NOTE: item.produto.nome já contém o sabor/marca, se aplicável
             listaItensTexto += `✅ ${item.quantidade}x *${item.produto.nome}* (${formatarMoeda(item.total)})\n`; 
         });
 
@@ -337,16 +326,41 @@ document.addEventListener('DOMContentLoaded', () => {
         localizacaoCliente = null;
         if (clientForm) clientForm.reset();
         atualizarBotaoCarrinho();
+        
+        // Atualiza a contagem visual de todos os itens para 0
+        cardapioCompleto.forEach(secao => {
+            secao.lista.forEach(produto => atualizarContadorItemVisual(produto.nome));
+        });
+        
         exibirCardapio();
     }
 
 
-    // --- 5. RENDERIZAÇÃO E INICIALIZAÇÃO DO CARDÁPIO (MODIFICADA PARA SUPORTAR OPÇÕES) ---
+    // --- 5. RENDERIZAÇÃO E INICIALIZAÇÃO DO CARDÁPIO (MODIFICADA PARA SIMPLIFICAR O ID E ACEITAR EXCEÇÃO) ---
     
     function renderizarSecao(titulo, listaProdutos, containerGeral) {
         
+        // Lógica simplificada para criar IDs mais limpos
+        const nomeBase = titulo.replace(/^\d+\.\s*/, '').trim(); // Remove "1. "
+        let sectionId = nomeBase.split('(')[0] // Pega o que está antes de '('
+                                  .trim()
+                                  .toLowerCase()
+                                  .replace(/[^a-z0-9\s]/g, '')
+                                  .replace(/\s+/g, '-'); 
+        
+        // NOVO: FORÇA O ID PARA 'mini-pizza' (SOLUÇÃO)
+        if (sectionId === 'pizzas-broto') {
+            sectionId = 'mini-pizza'; // O ID que o cliente deseja
+        }
+        
+        // NOVO: Força o ID para 'salgados' (caso o link seja o simplificado)
+        if (sectionId === 'salgados-kibes-e-pasteis') {
+            sectionId = 'salgados'; // ID simplificado
+        }
+        
         const secaoDiv = document.createElement('section');
         secaoDiv.className = 'secao-cardapio';
+        secaoDiv.id = sectionId; // ADICIONA O ID FINAL (ex: 'mini-pizza', 'pizzas-grandes')
         
         const tituloH2 = document.createElement('h2');
         tituloH2.className = 'font-titulo';
@@ -355,8 +369,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         listaProdutos.forEach(produto => {
             const indisponivel = produto.indisponivel || produto.preco === 0.00; 
-            const nomeBase = produto.nome; // Guarda o nome original para o contador
-            const temOpcoes = produto.opcoes && produto.opcoes.length > 0; // Verifica se tem opções
+            const nomeBase = produto.nome; 
+            const temOpcoes = produto.opcoes && produto.opcoes.length > 0;
             
             const itemDiv = document.createElement('div');
             itemDiv.className = `item-cardapio ${indisponivel ? 'indisponivel' : ''}`;
@@ -377,12 +391,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }
         
-            // O atributo data-item precisa ter o nome do produto BASE para o contador visual
             itemDiv.innerHTML = `
                 <div class="item-detalhes">
                     <h3>${produto.nome}</h3>
                     <p>${produto.descricao || ''}</p>
-                    ${selectHtml} </div>
+                    ${selectHtml} 
+                </div>
                 <div class="item-acao">
                     <span class="item-preco">${precoFormatado}</span>
                     <span class="contador-item" data-item="${nomeBase}" style="display: none;"></span> 
@@ -395,7 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!indisponivel) {
                 const botaoAdicionar = itemDiv.querySelector('.item-botao-add');
                 botaoAdicionar.addEventListener('click', () => {
-                    let produtoParaCarrinho = produto; // Começa com o produto base
+                    let produtoParaCarrinho = produto; 
                     
                     if (temOpcoes) {
                         const selectElement = itemDiv.querySelector('.select-sabor');
@@ -403,22 +417,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         if (!saborSelecionado) {
                             alert(`Por favor, selecione o sabor/marca para ${produto.nome}.`);
-                            return; // Interrompe a adição se o sabor não for selecionado
+                            return; 
                         }
                         
-                        // Cria um novo objeto de produto com o nome único para o carrinho
                         produtoParaCarrinho = {
                             ...produto,
-                            // O nome no carrinho será "Produto Base (Sabor Selecionado)"
                             nome: `${nomeBase} (${saborSelecionado})`
                         };
                         
-                        // Reseta o select após adicionar
                         selectElement.selectedIndex = 0;
                     }
 
                     adicionarAoCarrinho(produtoParaCarrinho);
-                    // O contador visual sempre usa o nome BASE do produto
                     atualizarContadorItemVisual(nomeBase); 
                 });
             }
@@ -436,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderizarSecao(secao.titulo, secao.lista, containerGeral);
         });
         
-        // NOVO: Inicializa os contadores para todos os produtos (usa a nova função)
+        // Inicializa os contadores para todos os produtos
         cardapioCompleto.forEach(secao => {
             secao.lista.forEach(produto => {
                 if (!produto.indisponivel) {
@@ -446,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 6. ATRIBUIÇÃO DE EVENTOS PARA CHECKOUT ---
+    // --- 6. ATRIBUIÇÃO DE EVENTOS PARA CHECKOUT E SCROLL SUAVE ---
     
     const cartButton = document.getElementById('cart-button');
     if (cartButton) cartButton.addEventListener('click', exibirCheckout);
@@ -454,9 +464,36 @@ document.addEventListener('DOMContentLoaded', () => {
     if (voltarBtnElement) voltarBtnElement.addEventListener('click', exibirCardapio); 
     if (clientForm) clientForm.addEventListener('submit', gerarMensagemWhatsApp);
 
-    // Conecta o botão de localização
     const btnLocalizacao = document.getElementById("btn-localizacao");
     if (btnLocalizacao) {
         btnLocalizacao.addEventListener("click", obterLocalizacaoClienteManual);
     }
+    
+    // --- Lógica de Scroll Suave para o Menu Rápido ---
+    const quickMenu = document.getElementById('quick-menu');
+    const headerElement = document.querySelector('header');
+    
+    // Calcula o offset (Altura do Header + Altura do Menu Rápido + Padding)
+    let offset = 0;
+    if (headerElement && quickMenu) {
+        offset = headerElement.offsetHeight + quickMenu.offsetHeight + 10; 
+    }
+
+    document.querySelectorAll('.quick-menu a').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                window.scrollTo({
+                    // Subtrai o offset para que o topo da seção fique visível abaixo dos menus fixos
+                    top: targetElement.offsetTop - offset, 
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    // --- FIM Scroll Suave ---
 });
