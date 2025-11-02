@@ -89,13 +89,13 @@ document.addEventListener('DOMContentLoaded', () => {
             { 
                 nome: "Suco Polpa 1L", 
                 descricao: "Escolha o sabor da polpa.", 
-                preco: 12.50,
+                preco: 25.00,
                 opcoes: ['Graviola', 'Cacau', 'Cajá', 'Cupuaçu', 'Maracujá', 'Manga']
             },
             { 
                 nome: "Suco Polpa 500ml", 
                 descricao: "Escolha o sabor da polpa.", 
-                preco: 25.00,
+                preco: 12.50,
                 opcoes: ['Graviola', 'Cacau', 'Cajá', 'Cupuaçu', 'Maracujá', 'Manga']
             },
             { nome: "Corona Long Neck", descricao: "", preco: 13.00 },
