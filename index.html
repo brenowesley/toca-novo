@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toca da Esfiha - Delivery Profissional</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav class="container">
+           <div class="logo">
+    <img src="img/logo.1.png" alt="Logo Toca da Esfiha" class="logo-img">
+</div>
+            <div class="contato-carrinho">
+                <span class="font-corpo telefone"></span>
+                <button id="cart-button" class="font-corpo">Carrinho (0)</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        
+        <section id="cardapio-section">
+            <div class="destaque">
+                <h2 class="font-titulo">CARDÁPIO COMPLETO</h2>
+                <p>Selecione e saboreie o prazer de uma esfiha, pizza ou salgado feito na hora. Qualidade e sabor que só a Toca tem!</p>
+            </div>
+            
+            <div id="cardapio-container">
+                </div>
+        </section>
+
+        <section id="checkout-section" class="checkout-form" style="display: none;">
+            <h2 class="font-titulo titulo-checkout">Finalizar Pedido</h2>
+            <p class="font-corpo resumo-pedido">Revise seu pedido antes de enviar.</p>
+            
+            <div id="resumo-carrinho" class="resumo-carrinho">
+                </div>
+
+            <form id="client-data-form">
+                <h3 class="font-titulo">Dados para Entrega</h3>
+                
+                <label for="nome">Nome Completo:</label>
+                <input type="text" id="nome" name="nome" required>
+
+                <label for="telefone_cliente">Telefone (DDD + Número):</label>
+                <input type="tel" id="telefone_cliente" name="telefone_cliente" placeholder="Ex: 73981139131" required>
+
+                <label for="rua">Rua/Avenida:</label>
+                <input type="text" id="rua" name="rua" required>
+
+                <label for="numero">Número:</label>
+                <input type="text" id="numero" name="numero" required>
+                
+                <label for="bairro">Bairro:</label>
+                <input type="text" id="bairro" name="bairro" required>
+
+                <label for="complemento">Complemento/Referência (Opcional):</label>
+                <input type="text" id="complemento" name="complemento">
+
+                <button type="button" id="btn-localizacao" class="btn-localizacao">
+                     📍 Pegar Localização
+               </button>
+                  <p id="status-localizacao" class="status-localizacao">Localização ainda não capturada.</p>
+            
+                
+                <h3 class="font-titulo">Forma de Pagamento</h3>
+                <select id="pagamento" name="pagamento" required>
+                    <option value="" disabled selected>Selecione a Forma de Pagamento</option>
+                    <option value="PIX">PIX</option>
+                    <option value="Cartão de Crédito/Débito (na entrega)">Cartão de Crédito/Débito (na entrega)</option>
+                    <option value="Dinheiro (na entrega)">Dinheiro (na entrega)</option>
+                </select>
+
+                <button type="submit" class="finalizar-whatsapp-btn">
+                    Enviar Pedido via WhatsApp
+                </button>
+                <button type="button" id="voltar-cardapio-btn" class="voltar-btn">
+                    &larr; Voltar ao Cardápio
+                </button>
+            </form>
+        </section>
+
+    </main>
+
+    <footer>
+        <p class="font-corpo">© 2024 Toca da Esfiha - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

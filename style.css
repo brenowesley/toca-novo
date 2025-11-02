@@ -1,0 +1,385 @@
+/* style.css */
+
+/* --- 1. CONFIGURAÇÃO GERAL (Paleta e Fontes) --- */
+:root {
+    /* Paleta de Cores */
+    --cor-fundo: #FBF5EE;           /* Bege Claro/Creme */
+    --cor-primaria: #8B0000;        /* Vermelho Bordô (Ação) */
+    --cor-primaria-hover: #610000;  /* Bordô Escuro */
+    --cor-acento: #FF8C00;          /* Laranja Escuro/Dourado (Preços) */
+    --cor-texto-titulo: #1A1A1A;    /* Preto Quase Total */
+    --cor-texto-corpo: #333333;     /* Cinza escuro */
+    --cor-branco: #FFFFFF;
+    --cor-borda: #E0E0E0;
+    --cor-indisponivel: #999999;    /* Cinza para indisponível */
+
+    /* Tipografia (Fontes) */
+    --font-titulo: 'Playfair Display', serif;
+    --font-corpo: 'Inter', sans-serif;
+}
+
+/* Reset e Padrões */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--cor-fundo);
+    font-family: var(--font-corpo);
+    color: var(--cor-texto-corpo);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Classes utilitárias de fonte */
+.font-titulo { font-family: var(--font-titulo); }
+.font-corpo { font-family: var(--font-corpo); }
+
+/* --- 2. CABEÇALHO (Header) --- */
+header {
+    background-color: var(--cor-branco);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size: 28px;
+    color: var(--cor-primaria);
+    font-weight: 700;
+}
+
+.logo p {
+    font-size: 14px;
+    color: var(--cor-texto-corpo);
+}
+
+.contato-carrinho {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.contato-carrinho .telefone {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--cor-acento);
+}
+
+.contato-carrinho button {
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px; 
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contato-carrinho button:hover {
+    background-color: var(--cor-primaria-hover);
+}
+
+/* --- 3. CONTEÚDO PRINCIPAL (Main) --- */
+main {
+    padding-top: 30px;
+}
+
+.destaque {
+    background-color: var(--cor-branco);
+    padding: 30px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.destaque h2 {
+    font-size: 36px;
+    color: var(--cor-primaria);
+    margin-bottom: 10px;
+}
+
+.destaque p {
+    font-size: 18px;
+    color: var(--cor-texto-corpo);
+    font-style: italic;
+}
+
+/* Títulos de Categoria */
+.secao-cardapio h2 {
+    font-family: var(--font-titulo);
+    font-size: 28px;
+    color: var(--cor-texto-titulo);
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    border-bottom: 3px solid var(--cor-acento); 
+    margin-top: 30px;
+}
+
+/* --- 4. ITEM INDIVIDUAL DO CARDÁPIO --- */
+.item-cardapio {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--cor-branco);
+    border-left: 5px solid var(--cor-primaria); 
+    border-radius: 5px;
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.item-detalhes {
+    flex-grow: 1;
+    padding-right: 15px;
+}
+
+.item-detalhes h3 {
+    font-family: var(--font-titulo);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--cor-texto-titulo);
+    margin-bottom: 2px;
+}
+
+.item-detalhes p {
+    font-size: 13px;
+    color: var(--cor-texto-corpo);
+}
+
+.item-acao {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-shrink: 0;
+    min-width: 100px;
+}
+
+.item-preco {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--cor-acento); 
+    margin-bottom: 8px;
+}
+
+.item-botao-add {
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+}
+
+.item-botao-add:hover {
+    background-color: var(--cor-primaria-hover);
+}
+
+/* Estilo para itens indisponíveis */
+.indisponivel {
+    opacity: 0.6;
+    background-color: #f0f0f0;
+    border-left: 5px solid var(--cor-indisponivel);
+}
+
+.indisponivel .item-preco {
+    color: var(--cor-indisponivel);
+    text-decoration: line-through;
+}
+
+.indisponivel .item-botao-add {
+    background-color: var(--cor-indisponivel);
+    cursor: not-allowed;
+    pointer-events: none; /* Desabilita o clique */
+}
+
+/* --- 5. RODAPÉ (Footer) --- */
+footer {
+    background-color: var(--cor-texto-titulo);
+    color: var(--cor-branco);
+    text-align: center;
+    padding: 25px 0;
+    margin-top: 60px;
+}
+/* --- ADIÇÃO AO style.css: ESTILOS DO CHECKOUT --- */
+
+.checkout-form {
+    background-color: var(--cor-branco);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px;
+}
+
+.titulo-checkout {
+    font-size: 32px;
+    color: var(--cor-primaria);
+    margin-bottom: 20px;
+    border-bottom: 3px solid var(--cor-acento);
+    padding-bottom: 10px;
+}
+
+.checkout-form h3 {
+    font-size: 24px;
+    color: var(--cor-texto-titulo);
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+/* Campos do Formulário */
+.checkout-form label {
+    display: block;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: var(--cor-texto-corpo);
+}
+
+.checkout-form input[type="text"],
+.checkout-form input[type="tel"],
+.checkout-form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: var(--font-corpo);
+}
+
+.checkout-form input[type="text"]:focus,
+.checkout-form input[type="tel"]:focus,
+.checkout-form select:focus {
+    border-color: var(--cor-primaria);
+    outline: none;
+    box-shadow: 0 0 5px rgba(139, 0, 0, 0.3);
+}
+
+/* Resumo do Carrinho */
+.resumo-carrinho {
+    border: 1px solid var(--cor-borda);
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 5px;
+    background-color: var(--cor-fundo);
+}
+
+.resumo-carrinho h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--cor-texto-titulo);
+}
+
+.item-resumo {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px dotted var(--cor-borda);
+    font-size: 15px;
+}
+
+.total-resumo {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cor-primaria);
+}
+
+/* Botões de Ação */
+.finalizar-whatsapp-btn {
+    background-color: #25D366; /* Cor do WhatsApp */
+    color: var(--cor-branco);
+    font-size: 18px;
+    font-weight: 700;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: background-color 0.3s ease;
+}
+
+.finalizar-whatsapp-btn:hover {
+    background-color: #1DA851;
+}
+
+.voltar-btn {
+    background-color: var(--cor-borda);
+    color: var(--cor-texto-corpo);
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+
+/* --- LOGO NO TOPO --- */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    height: 80px;
+    width: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
+}
+/* --- BOTÃO DE LOCALIZAÇÃO --- */
+.btn-localizacao {
+    background-color: #8B0000;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-localizacao:hover {
+    background-color: #610000;
+}
+
+.status-localizacao {
+    font-size: 14px;
+    color: #555;
+    margin-top: 5px;
+    text-align: center;
+}
