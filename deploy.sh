@@ -38,4 +38,3 @@ else
     echo "❌ Erro ao enviar. Verifique sua conexão ou se há conflitos."
 fi
 
-# Fim do script
