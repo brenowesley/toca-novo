@@ -50,49 +50,64 @@
             <div id="resumo-carrinho" class="resumo-carrinho">
                 </div>
 
-            <form id="client-data-form" class="client-data-form">
-                <h3 class="font-titulo">Seus Dados</h3>
-                <label for="nome">Nome Completo:</label>
-                <input type="text" id="nome" name="nome" required>
+            <form id="client-data-form" class="client-form">
+    <h3 class="font-titulo">Seus Dados</h3>
+    
+    <div class="form-group">
+        <div class="form-field">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" name="nome" required>
+        </div>
+        <div class="form-field">
+            <label for="telefone_cliente">Telefone (c/ WhatsApp):</label>
+            <input type="tel" id="telefone_cliente" name="telefone_cliente" required>
+        </div>
+    </div>
+    
+    <h3 class="font-titulo">Endereço de Entrega</h3>
+    
+    <div class="form-group">
+        <div class="form-field">
+            <label for="bairro">Bairro:</label>
+            <input type="text" id="bairro" name="bairro" required>
+        </div>
+        <div class="form-field">
+            <label for="rua">Rua/Avenida:</label>
+            <input type="text" id="rua" name="rua" required>
+        </div>
+    </div>
 
-                <label for="telefone_cliente">Telefone (c/ WhatsApp):</label>
-                <input type="tel" id="telefone_cliente" name="telefone_cliente" required>
-                
-                <h3 class="font-titulo">Endereço de Entrega</h3>
-                
-                <label for="bairro">Bairro:</label>
-                <input type="text" id="bairro" name="bairro" required>
-                
-                <label for="rua">Rua/Avenida:</label>
-                <input type="text" id="rua" name="rua" required>
+    <div class="form-group">
+        <div class="form-field form-field-numero"> <label for="numero">Número:</label>
+            <input type="text" id="numero" name="numero" required>
+        </div>
+        <div class="form-field">
+            <label for="complemento">Complemento/Referência (Opcional):</label>
+            <input type="text" id="complemento" name="complemento">
+        </div>
+    </div>
 
-                <label for="numero">Número:</label>
-                <input type="text" id="numero" name="numero" required>
-                
-                <label for="complemento">Complemento/Referência (Opcional):</label>
-                <input type="text" id="complemento" name="complemento">
+    <button type="button" id="btn-localizacao" class="btn-localizacao">
+         📍 Pegar Localização
+   </button>
+      <p id="status-localizacao" class="status-localizacao">Localização ainda não capturada.</p>
 
-                <button type="button" id="btn-localizacao" class="btn-localizacao">
-                     📍 Pegar Localização
-               </button>
-                  <p id="status-localizacao" class="status-localizacao">Localização ainda não capturada.</p>
-            
-                
-                <h3 class="font-titulo">Forma de Pagamento</h3>
-                <select id="pagamento" name="pagamento" required>
-                    <option value="" disabled selected>Selecione a Forma de Pagamento</option>
-                    <option value="PIX">PIX</option>
-                    <option value="Cartão de Crédito/Débito (na entrega)">Cartão de Crédito/Débito (na entrega)</option>
-                    <option value="Dinheiro (na entrega)">Dinheiro (na entrega)</option>
-                </select>
+    
+    <h3 class="font-titulo">Forma de Pagamento</h3>
+    <select id="pagamento" name="pagamento" required>
+        <option value="" disabled selected>Selecione a Forma de Pagamento</option>
+        <option value="PIX">PIX</option>
+        <option value="Cartão de Crédito/Débito (na entrega)">Cartão de Crédito/Débito (na entrega)</option>
+        <option value="Dinheiro (na entrega)">Dinheiro (na entrega)</option>
+    </select>
 
-                <button type="submit" class="finalizar-whatsapp-btn">
-                    Enviar Pedido via WhatsApp
-                </button>
-                <button type="button" id="voltar-cardapio-btn" class="voltar-btn">
-                    &larr; Voltar ao Cardápio
-                </button>
-            </form>
+    <button type="submit" class="finalizar-whatsapp-btn">
+        Enviar Pedido via WhatsApp
+    </button>
+    <button type="button" id="voltar-cardapio-btn" class="voltar-btn">
+        &larr; Voltar ao Cardápio
+    </button>
+</form>
         </section>
 
     </main>

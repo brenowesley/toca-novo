@@ -486,3 +486,249 @@ footer {
     background-color: var(--cor-primaria);
     color: var(--cor-branco);
 }
+
+/* ------------------------------------------- */
+/* --- ESTILOS DA SEÇÃO CHECKOUT/DADOS DO CLIENTE --- */
+/* ------------------------------------------- */
+
+#checkout-section {
+    padding: 20px;
+    background-color: var(--cor-branco);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+    /* Por padrão, esta seção deve iniciar com 'display: none;' 
+       e ser controlada pelo seu 'script.js' */
+    /* display: none; */ 
+}
+
+/* Título de seção dentro do formulário (ex: Forma de Pagamento) */
+#checkout-section h3.font-titulo {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: var(--cor-primaria);
+}
+
+/* --- ORGANIZAÇÃO DOS CAMPOS EM FLEXBOX (LADO A LADO) --- */
+
+/* Estilo para agrupar campos que devem ficar lado a lado (Nome/Tel, Rua/Número, Bairro/Complemento) */
+.form-group {
+    display: flex;
+    gap: 15px; /* Espaço entre os campos */
+    margin-bottom: 10px;
+}
+
+/* O wrapper do campo (Label + Input) dentro do grupo */
+.form-field {
+    flex: 1; /* Faz com que cada campo ocupe o mesmo espaço (50%) */
+    min-width: 45%; 
+}
+
+/* Ajuste específico para o campo de Número, que é menor */
+.form-field-numero {
+    flex-grow: 0; /* Impede que ele cresça */
+    flex-shrink: 0; /* Impede que ele encolha */
+    width: 30%; /* Largura específica para o campo de número */
+    max-width: 120px;
+}
+
+/* Estilo para Labels */
+.client-form label {
+    display: block; /* Garante que o label fique em sua própria linha */
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cor-texto-corpo);
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+/* Estilo para Inputs e Selects */
+.client-form input[type="text"],
+.client-form input[type="tel"],
+.client-form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 5px;
+    font-family: var(--font-corpo);
+    font-size: 16px;
+    color: var(--cor-texto-corpo);
+    transition: border-color 0.3s ease;
+}
+
+/* Efeito de Foco (quando o usuário clica no campo) */
+.client-form input:focus,
+.client-form select:focus {
+    border-color: var(--cor-primaria);
+    outline: none;
+    box-shadow: 0 0 0 1px var(--cor-primaria);
+}
+
+/* --- RESPONSIVIDADE (MOBILE) --- */
+@media (max-width: 650px) {
+    .form-group {
+        flex-direction: column; /* Altera para empilhamento vertical (1 campo por linha) */
+        gap: 0; /* Remove o espaço lateral entre eles */
+    }
+
+    .form-field, 
+    .form-field-numero {
+        width: 100%; /* Ocupa a largura total do celular */
+        min-width: 100%;
+        max-width: 100%;
+    }
+}
+/* --- ESTILOS PARA O CHECKOUT E FORMULÁRIO (Melhorias de Design) --- */
+
+/* Estilo para a seção do formulário (Mantido, garante fundo branco e linha de destaque) */
+.checkout-section {
+    padding: 40px 0;
+    background-color: var(--cor-branco); 
+    border-top: 5px solid var(--cor-acento); /* Linha laranja de destaque */
+}
+
+/* 1. Melhoria no Container do Formulário */
+.client-form {
+    background-color: var(--cor-branco);
+    padding: 30px; /* Aumenta o padding para mais 'ar' */
+    border-radius: 12px; /* Aumenta o raio da borda para um look mais suave */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra mais destacada e premium */
+    max-width: 650px; /* Permite que o formulário seja um pouco mais largo em desktop */
+    margin: 30px auto;
+    border: 1px solid var(--cor-borda); /* Adiciona uma borda sutil */
+}
+
+/* Estilo para Labels */
+.client-form label {
+    display: block; 
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cor-texto-corpo);
+    margin-top: 15px; /* Mais espaço entre campos */
+    margin-bottom: 5px;
+}
+
+/* 2. Melhoria em Inputs e Selects */
+.client-form input[type="text"],
+.client-form input[type="tel"],
+.client-form select {
+    width: 100%;
+    padding: 14px; /* Aumenta o padding interno (mais alto) */
+    border: 2px solid var(--cor-borda); /* Borda mais grossa e visível */
+    border-radius: 8px; /* Cantos mais arredondados */
+    font-family: var(--font-corpo);
+    font-size: 16px;
+    color: var(--cor-texto-corpo);
+    background-color: #F9F9F9; /* Fundo sutilmente cinza para destacar do container */
+    transition: border-color 0.3s ease, box-shadow 0.3s;
+}
+
+/* Efeito de Foco (quando o usuário clica no campo) */
+.client-form input:focus,
+.client-form select:focus {
+    border-color: var(--cor-primaria); /* Usa o bordô no foco */
+    outline: none; 
+    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1); /* Brilho suave no foco */
+    background-color: var(--cor-branco); /* Fundo branco no foco */
+}
+
+/* Títulos internos do Formulário (h3) */
+.client-form h3 {
+    font-family: var(--font-titulo);
+    color: var(--cor-texto-titulo);
+    margin-top: 35px; /* Mais espaço acima */
+    margin-bottom: 15px; /* Mais espaço abaixo */
+    border-bottom: 3px solid var(--cor-acento); /* Usa a cor de destaque (Dourado/Laranja) como separador */
+    padding-bottom: 8px;
+    font-size: 20px;
+}
+
+/* Grupo Rua e Número (mantido o Flexbox existente para responsividade) */
+.rua-numero-group {
+    display: flex;
+    gap: 20px; 
+    align-items: flex-end; 
+}
+
+.form-field-rua {
+    flex-grow: 1; 
+}
+
+.form-field-numero {
+    flex-grow: 0; 
+    flex-shrink: 0; 
+    width: 30%; 
+    max-width: 120px;
+}
+
+/* 3. Estilo para o Botão de Localização (Secundário/Informativo) */
+.btn-localizacao {
+    background-color: #4CAF50; /* Verde mais amigável para localização */
+    color: var(--cor-branco);
+    font-size: 16px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.1s;
+    font-weight: 500;
+}
+
+.btn-localizacao:hover {
+    background-color: #45a049;
+    transform: translateY(-1px); /* Efeito sutil de elevação */
+}
+
+/* Status de Localização (sutil e centralizado) */
+.status-localizacao {
+    font-size: 13px;
+    color: var(--cor-texto-corpo);
+    text-align: center;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+/* 4. Estilo para o Botão Principal (Ação Final) */
+.finalizar-whatsapp-btn {
+    background-color: var(--cor-primaria); /* Vermelho Bordô forte */
+    color: var(--cor-branco);
+    font-size: 18px;
+    font-weight: 700;
+    padding: 18px; /* Botão maior e mais chamativo */
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 30px; /* Mais espaço para destacar a ação final */
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease, box-shadow 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.finalizar-whatsapp-btn:hover {
+    background-color: var(--cor-primaria-hover);
+    box-shadow: 0 4px 10px rgba(139, 0, 0, 0.4); /* Sombra no hover para efeito 3D */
+}
+
+/* Estilo para o Botão Secundário (Voltar) */
+.voltar-btn { 
+    background-color: var(--cor-borda); 
+    color: var(--cor-texto-corpo); 
+    font-size: 16px; 
+    padding: 14px; 
+    border: none; 
+    border-radius: 8px; 
+    width: 100%; 
+    cursor: pointer; 
+    margin-top: 10px; 
+    transition: background-color 0.3s ease; 
+    font-weight: 500;
+}
+
+.voltar-btn:hover {
+    background-color: #D5D5D5; /* Cinza um pouco mais escuro */
+}
