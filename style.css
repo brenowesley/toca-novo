@@ -383,3 +383,16 @@ footer {
     margin-top: 5px;
     text-align: center;
 }
+/* style.css - ADICIONE ESTE NOVO BLOCO */
+
+.item-acao .contador-item {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--cor-primaria); /* Usa o vermelho bordô principal */
+    background-color: #ffeaea; /* Fundo leve para destacar */
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 5px; /* Espaço entre o contador e o botão de adicionar */
+    text-align: right;
+    width: 100%;
+}

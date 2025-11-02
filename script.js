@@ -1,13 +1,12 @@
-/* script.js - Versão Final 3.0: Popup Removido */
+/* script.js - Versão Final 3.1: Contador de Item Corrigido */
 
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. DADOS E CONSTANTES GLOBAIS ---
-    // Telefone Toca da Esfiha: 73.98113-9131
+    // Variáveis globais DENTRO DO ESCOPO para que sejam acessíveis por todas as funções internas
     const WHATSAPP_NUMBER = '73981139131'; 
-
-    // O carrinho agora usa um objeto para agrupar itens (necessário para o checkout)
-    let carrinho = {}; 
+    let carrinho = {}; // Variável principal do carrinho
+    let localizacaoCliente = null; // Variável para a localização
 
     // Função auxiliar para formatar moeda
     function formatarMoeda(valor) {
@@ -116,14 +115,30 @@ document.addEventListener('DOMContentLoaded', () => {
         return Object.values(carrinho).reduce((sum, item) => sum + item.total, 0);
     }
 
-  function atualizarBotaoCarrinho() {
-    const totalItens = Object.values(carrinho).reduce((sum, item) => sum + item.quantidade, 0);
-    const totalValor = calcularTotalCarrinho();
-    const botaoCarrinho = document.getElementById('cart-button');
-    botaoCarrinho.textContent = `Carrinho (${totalItens}) Total: ${formatarMoeda(totalValor)}`;
-}
+    function atualizarBotaoCarrinho() {
+        const totalItens = Object.values(carrinho).reduce((sum, item) => sum + item.quantidade, 0);
+        const totalValor = calcularTotalCarrinho();
+        const botaoCarrinho = document.getElementById('cart-button');
+        botaoCarrinho.textContent = `Carrinho (${totalItens}) Total: ${formatarMoeda(totalValor)}`;
+    }
 
-
+    // NOVA FUNÇÃO: Atualiza o contador de um item específico no cardápio
+    function atualizarContadorItem(produtoNome) {
+        // Usamos .replace(/"/g, '\\"') para garantir que nomes com aspas funcionem como seletor
+        const spanContador = document.querySelector(`.contador-item[data-item="${produtoNome.replace(/"/g, '\\"')}"]`);
+        
+        if (spanContador) {
+            const item = carrinho[produtoNome];
+            const quantidade = item ? item.quantidade : 0;
+            
+            if (quantidade > 0) {
+                spanContador.textContent = `(${quantidade} no carrinho)`;
+                spanContador.style.display = 'block';
+            } else {
+                spanContador.style.display = 'none';
+            }
+        }
+    }
 
     function adicionarAoCarrinho(produto) {
         if (carrinho[produto.nome]) {
@@ -136,8 +151,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 total: produto.preco
             };
         }
-        // alert(`"${produto.nome}" adicionado ao carrinho!`); // LINHA DE POPUP REMOVIDA
+        
         atualizarBotaoCarrinho();
+        // Chama a função para atualizar a contagem visual no cardápio
+        atualizarContadorItem(produto.nome); 
     }
     
     // --- 3. LÓGICA DE VISUALIZAÇÃO (CARDÁPIO vs CHECKOUT) ---
@@ -147,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkoutSection = document.getElementById('checkout-section');
     const resumoCarrinhoDiv = document.getElementById('resumo-carrinho');
     const clientForm = document.getElementById('client-data-form');
-    const voltarBtn = document.getElementById('voltar-cardapio-btn'); 
+    // const voltarBtn = document.getElementById('voltar-cardapio-btn'); // Não é necessário como variável global
 
     function exibirCheckout() {
         if (Object.keys(carrinho).length === 0) {
@@ -185,32 +202,30 @@ document.addEventListener('DOMContentLoaded', () => {
         checkoutSection.style.display = 'none';
     }
 
-// --- Capturar localização GPS (corrigido e fora do escopo principal) ---
-let localizacaoCliente = null;
+    // --- Capturar localização GPS ---
+    function obterLocalizacaoClienteManual() {
+        const status = document.getElementById('status-localizacao');
+        if (!status) return;
+        status.textContent = "📡 Obtendo localização...";
+        status.style.color = "#555";
 
-function obterLocalizacaoClienteManual() {
-    const status = document.getElementById('status-localizacao');
-    if (!status) return;
-    status.textContent = "📡 Obtendo localização...";
-    status.style.color = "#555";
+        if (!navigator.geolocation) {
+            status.textContent = "❌ Seu navegador não suporta geolocalização.";
+            status.style.color = "red";
+            return;
+        }
 
-    if (!navigator.geolocation) {
-        status.textContent = "❌ Seu navegador não suporta geolocalização.";
-        status.style.color = "red";
-        return;
-    }
-
-   navigator.geolocation.getCurrentPosition(
-    (pos) => {
-        const lat = pos.coords.latitude.toFixed(8);
-        const lon = pos.coords.longitude.toFixed(8);
-        localizacaoCliente = `https://www.google.com/maps?q=${lat},${lon}`;
-        console.log(`📍 Localização precisa: ${lat}, ${lon}`);
+    navigator.geolocation.getCurrentPosition(
+        (pos) => {
+            const lat = pos.coords.latitude.toFixed(8);
+            const lon = pos.coords.longitude.toFixed(8);
+            // Formato de link do Google Maps para facilitar o clique
+            localizacaoCliente = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
+            console.log(`📍 Localização precisa: ${lat}, ${lon}`);
+            status.textContent = "✅ Localização capturada! (Pronto para enviar)";
+            status.style.color = "green";
         },
-
-
-
-        
+            
         (err) => {
             console.error("Erro ao capturar localização:", err);
             if (err.code === 1) {
@@ -225,89 +240,81 @@ function obterLocalizacaoClienteManual() {
             status.style.color = "red";
             localizacaoCliente = "Não capturada";
         },
-       {
-    enableHighAccuracy: true,
-    timeout: 15000,
-    maximumAge: 0
-}
+        {
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 0
+        }
     );
-}
-
-// Garante que o botão funcione mesmo fora do DOMContentLoaded
-window.addEventListener("load", () => {
-    const btnLocalizacao = document.getElementById("btn-localizacao");
-    if (btnLocalizacao) {
-        btnLocalizacao.addEventListener("click", obterLocalizacaoClienteManual);
-        console.log("✅ Botão de localização conectado!");
-    } else {
-        console.warn("⚠️ Botão de localização não encontrado no DOM.");
     }
-})
+
 
     // --- 4. GERAÇÃO DA MENSAGEM WHATSAPP (Aprimorada com Codificação Standard) ---
 
-   function gerarMensagemWhatsApp(event) {
-    event.preventDefault();
+    function gerarMensagemWhatsApp(event) {
+        event.preventDefault();
 
-    const formData = new FormData(clientForm);
-    const nome = formData.get('nome') || 'Não Informado';
-    const telefoneCliente = formData.get('telefone_cliente') || 'Não Informado'; 
-    const rua = formData.get('rua') || 'Não Informado';
-    const numero = formData.get('numero') || 'S/N';
-    const bairro = formData.get('bairro') || 'Não Informado';
-    const complemento = formData.get('complemento') || 'Não informado';
-    const pagamento = formData.get('pagamento') || 'A Definir'; 
-    
-    const subtotal = calcularTotalCarrinho();
-    const taxaTextoExibicao = 'A consultar';
-    const localizacaoLink = localizacaoCliente || 'Não capturada';
+        const formData = new FormData(clientForm);
+        const nome = formData.get('nome') || 'Não Informado';
+        const telefoneCliente = formData.get('telefone_cliente') || 'Não Informado'; 
+        const rua = formData.get('rua') || 'Não Informado';
+        const numero = formData.get('numero') || 'S/N';
+        const bairro = formData.get('bairro') || 'Não Informado';
+        const complemento = formData.get('complemento') || 'Não informado';
+        const pagamento = formData.get('pagamento') || 'A Definir'; 
+        
+        const subtotal = calcularTotalCarrinho();
+        const taxaTextoExibicao = 'A consultar';
+        const localizacaoLink = localizacaoCliente || 'Não capturada';
 
-    // --- Lista de Itens sem valores individuais ---
-    let listaItensTexto = "";
-    Object.values(carrinho).forEach(item => {
-        listaItensTexto += `✅ ${item.quantidade}x *${item.produto.nome}*\n`;
-    });
+        // --- Lista de Itens sem valores individuais ---
+        let listaItensTexto = "";
+        Object.values(carrinho).forEach(item => {
+            listaItensTexto += `✅ ${item.quantidade}x *${item.produto.nome}* (${formatarMoeda(item.total)})\n`; // Adicionado valor total do item
+        });
 
-    // --- Montagem da Mensagem ---
-    let mensagem = `*🍽️ TOCA DA ESFIHA - NOVO PEDIDO*\n`;
-    mensagem += `──────────────────────────────\n`;
-    mensagem += `👤 *Cliente:* ${nome}\n`;
-    mensagem += `📞 *Telefone:* ${telefoneCliente}\n\n`;
-    mensagem += `🏠 *Endereço:*\n`;
-    mensagem += `• Bairro: ${bairro}\n`;
-    mensagem += `• Rua/Nº: ${rua}, ${numero}\n`;
-    mensagem += `• Referência: ${complemento}\n`;
-    mensagem += `• Localização GPS: ${localizacaoLink}\n`;
-    mensagem += `──────────────────────────────\n`;
-    mensagem += `🛍️ *Itens do Pedido:*\n\n`;
-    mensagem += listaItensTexto;
-    mensagem += `──────────────────────────────\n`;
-    mensagem += `💰 *Resumo:*\n`;
-    mensagem += `Subtotal: ${formatarMoeda(subtotal)}\n`;
-    mensagem += `Taxa de Entrega: ${taxaTextoExibicao} (${bairro})\n`;
-    mensagem += `💵 *TOTAL:* ${formatarMoeda(subtotal)}\n`;
-    mensagem += `──────────────────────────────\n`;
-    mensagem += `💳 *Pagamento:* ${pagamento}\n`;
-    mensagem += `⚠️ *Taxa será confirmada via WhatsApp*\n`;
-    mensagem += `──────────────────────────────\n`;
-    mensagem += `📦 Obrigado por pedir com a *Toca da Esfiha*! 😋\n`;
-mensagem += `──────────────────────────────\n`;
-mensagem += `📍 *Observação:*\n`;
-mensagem += `Caso o ponto no mapa não esteja exato,\n`;
-mensagem += `envie sua localização diretamente pelo WhatsApp para confirmação. 🙏`;
+        // --- Montagem da Mensagem ---
+        let mensagem = `*🍽️ TOCA DA ESFIHA - NOVO PEDIDO*\n`;
+        mensagem += `──────────────────────────────\n`;
+        mensagem += `👤 *Cliente:* ${nome}\n`;
+        mensagem += `📞 *Telefone:* ${telefoneCliente}\n\n`;
+        mensagem += `🏠 *Endereço:*\n`;
+        mensagem += `• Bairro: ${bairro}\n`;
+        mensagem += `• Rua/Nº: ${rua}, ${numero}\n`;
+        mensagem += `• Referência: ${complemento}\n`;
+        mensagem += `• Localização GPS: ${localizacaoLink}\n`;
+        mensagem += `──────────────────────────────\n`;
+        mensagem += `🛍️ *Itens do Pedido:*\n\n`;
+        mensagem += listaItensTexto;
+        mensagem += `──────────────────────────────\n`;
+        mensagem += `💰 *Resumo:*\n`;
+        mensagem += `Subtotal: ${formatarMoeda(subtotal)}\n`;
+        mensagem += `Taxa de Entrega: ${taxaTextoExibicao} (${bairro})\n`;
+        mensagem += `💵 *TOTAL:* ${formatarMoeda(subtotal)}\n`;
+        mensagem += `──────────────────────────────\n`;
+        mensagem += `💳 *Pagamento:* ${pagamento}\n`;
+        mensagem += `⚠️ *Taxa será confirmada via WhatsApp*\n`;
+        mensagem += `──────────────────────────────\n`;
+        mensagem += `📦 Obrigado por pedir com a *Toca da Esfiha*! 😋\n`;
+        mensagem += `──────────────────────────────\n`;
+        mensagem += `📍 *Observação:*\n`;
+        mensagem += `Caso o ponto no mapa não esteja exato,\n`;
+        mensagem += `envie sua localização diretamente pelo WhatsApp para confirmação. 🙏`;
 
-    const mensagemFinal = encodeURIComponent(mensagem);
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensagemFinal}`;
-    window.open(whatsappUrl, '_blank');
+        const mensagemFinal = encodeURIComponent(mensagem);
+        const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensagemFinal}`;
+        window.open(whatsappUrl, '_blank');
 
-    carrinho = {};
-    if (clientForm) clientForm.reset();
-    atualizarBotaoCarrinho();
-    exibirCardapio();
-}
+        // Resetar e Voltar ao Cardápio
+        carrinho = {};
+        localizacaoCliente = null;
+        if (clientForm) clientForm.reset();
+        atualizarBotaoCarrinho();
+        exibirCardapio();
+    }
 
 
-    // --- 5. RENDERIZAÇÃO E INICIALIZAÇÃO DO CARDÁPIO ---
+    // --- 5. RENDERIZAÇÃO E INICIALIZAÇÃO DO CARDÁPIO (CORRIGIDA) ---
     
     function renderizarSecao(titulo, listaProdutos, containerGeral) {
         
@@ -320,13 +327,15 @@ mensagem += `envie sua localização diretamente pelo WhatsApp para confirmaçã
         secaoDiv.appendChild(tituloH2);
 
         listaProdutos.forEach(produto => {
-            
-            const itemDiv = document.createElement('div');
+            // Definição da variável indisponivel no loop
             const indisponivel = produto.indisponivel || produto.preco === 0.00; 
             
+            const itemDiv = document.createElement('div');
             itemDiv.className = `item-cardapio ${indisponivel ? 'indisponivel' : ''}`;
-            const precoFormatado = indisponivel ? 'N/D' : formatarMoeda(produto.preco);
             
+            const precoFormatado = indisponivel ? 'N/D' : formatarMoeda(produto.preco);
+        
+            // O atributo data-item precisa ter o nome do produto para a função atualizarContadorItem funcionar
             itemDiv.innerHTML = `
                 <div class="item-detalhes">
                     <h3>${produto.nome}</h3>
@@ -334,6 +343,7 @@ mensagem += `envie sua localização diretamente pelo WhatsApp para confirmaçã
                 </div>
                 <div class="item-acao">
                     <span class="item-preco">${precoFormatado}</span>
+                    <span class="contador-item" data-item="${produto.nome}" style="display: none;"></span> 
                     <button class="item-botao-add">
                         ${indisponivel ? 'Indisponível' : '+ Adicionar'}
                     </button>
@@ -359,14 +369,22 @@ mensagem += `envie sua localização diretamente pelo WhatsApp para confirmaçã
         cardapioCompleto.forEach(secao => {
             renderizarSecao(secao.titulo, secao.lista, containerGeral);
         });
+        
+        // NOVO: Inicializa os contadores para qualquer item que já estivesse no carrinho (se fosse persistente, mas garante o estado inicial)
+        Object.keys(carrinho).forEach(itemNome => atualizarContadorItem(itemNome));
     }
 
     // --- 6. ATRIBUIÇÃO DE EVENTOS PARA CHECKOUT ---
     
     const cartButton = document.getElementById('cart-button');
     if (cartButton) cartButton.addEventListener('click', exibirCheckout);
-    const voltarBtnElement = document.getElementById('voltar-cardapio-btn'); // Corrigido para usar a variável local
+    const voltarBtnElement = document.getElementById('voltar-cardapio-btn'); 
     if (voltarBtnElement) voltarBtnElement.addEventListener('click', exibirCardapio); 
     if (clientForm) clientForm.addEventListener('submit', gerarMensagemWhatsApp);
 
+    // Conecta o botão de localização
+    const btnLocalizacao = document.getElementById("btn-localizacao");
+    if (btnLocalizacao) {
+        btnLocalizacao.addEventListener("click", obterLocalizacaoClienteManual);
+    }
 });
