@@ -33,11 +33,10 @@ body {
 }
 
 .container {
-    max-width: 960px;
+   width: 95%; /* Garante que ocupa 95% da largura da tela */
+    max-width: 1200px; /* Limite em telas grandes */
     margin: 0 auto;
-    padding: 0 20px;
 }
-
 /* Classes utilitárias de fonte */
 .font-titulo { font-family: var(--font-titulo); }
 .font-corpo { font-family: var(--font-corpo); }
@@ -46,10 +45,9 @@ body {
 header {
     background-color: var(--cor-fundo);
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-    padding: 15px 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+   padding: 15px 0; /* Ajuste o padding para não ser muito grande */
+    flex-wrap: wrap; /* Importante para quebrar elementos em telas pequenas */
+    gap: 10px; /* Espaço entre os itens quando quebrarem */
 }
 
 header nav {
@@ -1051,3 +1049,102 @@ footer {
   font-weight:700;
 }
 
+/* -------------------------
+   Correções: "Mais vendido da semana"
+   Cole no final do style.css
+   ------------------------- */
+
+/* 1) Wrapper/Seção principal — centraliza e limita largura */
+.mais-vendido-section,
+.mais-vendidos,
+.section-mais-vendido,
+.section-mais-vendidos {
+  display: block;
+  width: 100%;
+  max-width: 1200px;      /* limite máximo para não esticar demais */
+  margin: 0 auto 30px;    /* centraliza horizontalmente e separa de baixo */
+  padding: 0 15px;        /* padding lateral para telas pequenas */
+  box-sizing: border-box;
+}
+
+/* 2) Grid dos cards — controla colunas e evita stretch vertical */
+.mais-vendido-grid,
+.mais-vendidos-grid,
+.destaques-grid.mais-vendido,
+.destaques-grid.mais-vendidos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  align-items: start;      /* evita que itens fiquem esticados verticalmente */
+  align-content: start;
+  grid-auto-rows: auto;    /* linhas adaptam ao conteúdo (não esticam) */
+}
+
+/* 3) Cada card — limita largura/altura e centraliza conteúdo */
+.mais-vendido-card,
+.mais-vendidos .destaque-card,
+.mais-vendido-item,
+.destaque-card.mais-vendido {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  min-height: 0;           /* previne overflow por causa de flexbox */
+  max-height: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 4) Conteúdo interno — evita que texto e botões empurrem o layout */
+.mais-vendido-card .card-body,
+.mais-vendidos .card-body,
+.destaque-card .card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+}
+
+/* 5) Imagens — garante proporção sem distorcer e tamanho máximo */
+.mais-vendido-card img,
+.destaque-card img,
+.mais-vendidos img {
+  width: 100%;
+  max-width: 220px;        /* limita largura da imagem dentro do card */
+  height: auto;
+  max-height: 140px;       /* evita que imagem faça o card crescer demais */
+  object-fit: cover;
+  margin: 0 auto;          /* centraliza a imagem se for menor que o card */
+  display: block;
+  border-radius: 6px;
+}
+
+/* força o container de imagem não esticar verticalmente */
+.item-imagem-container,
+.destaque-imagem-container {
+  min-height: 0;
+  max-height: 160px;
+  overflow: hidden;
+}
+
+/* 6) Evita que títulos/descrições quebrem o layout */
+.mais-vendido-card h3,
+.mais-vendido-card p,
+.destaque-card h4 {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;   /* limita a 2 linhas */
+  -webkit-box-orient: vertical;
+}
+
+/* 7) Força botões a não empurrar layout e ficar responsivos */
+.mais-vendido-card .add-cart-btn,
+.destaque-card .add-cart-btn,
+.mais-vendido-card .btn-adicionar {
+  white-space: nowrap;
+  align-self: stretch;     /* botão ocupa largura do card */
+}
+
+/* 8) Ajustes Mobile: menos col*

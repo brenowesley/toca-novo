@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Estrutura para geração do HTML do cardápio (REORDENADA)
     const cardapioEstrutura = [
         { id: "esfihas-salgadas", titulo: "1. Esfihas Salgadas", lista: cardapioData.esfihasSalgadas },
-        { id: "opcoes-vegetarianas", titulo: "2. Opções Vegetarianas", lista: cardapioData.opcoesVegetarianas },
+        { id: "opcoes-vegetarianas", titulo: "2. Vegetarianas", lista: cardapioData.opcoesVegetarianas },
         { id: "esfihas-doces", titulo: "3. Esfihas Doces", lista: cardapioData.esfihasDoces },
         { id: "pasteis-quibes", titulo: "4. Pastel e Quibe", lista: cardapioData.salgados },
         { id: "pizzas-broto", titulo: "5. Mini Pizza", lista: cardapioData.pizzasBroto },
