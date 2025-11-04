@@ -686,73 +686,39 @@ footer {
     }
 }
 
-/* Mobile (Abaixo de 768px) */
+/* Ajuste da grade dos destaques */
+.destaques-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+/* Em telas pequenas, forçar layout com 2 por linha */
 @media (max-width: 768px) {
-    header nav {
-        flex-direction: row;
-        gap: 10px;
-        align-items: flex-start;
-    }
-    
-    .logo {
-         flex-grow: 1; /* Permite que o logo ocupe mais espaço */
-    }
-    
-    .contato-carrinho {
-        gap: 10px;
-    }
-    
-    /* Esconde o botão do carrinho no cabeçalho em mobile (substituído pelo flutuante) */
-    #cart-button {
-        display: none; 
-    }
-    
-    .form-group {
-        flex-direction: column; /* Coloca campos um abaixo do outro */
-    }
-    
-    .client-form-container {
-        padding: 20px;
-    }
-    
-    .item-cardapio {
-        flex-direction: row;
-        align-items: flex-start;
-    }
-    
-    .item-acao {
-        min-width: 80px;
-    }
-    
     .destaques-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 colunas em mobile */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 }
 
-/* Mobile Menor (Abaixo de 480px) */
-@media (max-width: 480px) {
-    .logo-text h1 {
-        font-size: 20px; 
-    }
-    .logo-text p {
-        font-size: 11px;
-    }
-    
-    .item-cardapio {
-         padding: 10px;
+/* Em celulares menores (ex: 360px) */
+@media (max-width: 420px) {
+    .destaques-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
     }
 
-    .item-imagem-container {
-        width: 70px;
-        height: 70px;
+    .destaque-card {
+        padding: 8px;
     }
-    
-    .item-detalhes h3 {
-        font-size: 16px;
+
+    .destaque-card img {
+        border-radius: 6px;
     }
-    
-    .item-detalhes p {
-        font-size: 12px;
+
+    .destaque-card h4 {
+        font-size: 13px;
     }
 }
 /* style.css */
