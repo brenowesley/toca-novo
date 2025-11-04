@@ -43,17 +43,27 @@ body {
 
 /* --- 2. CABEÇALHO (Header) --- */
 header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
     background-color: var(--cor-fundo);
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-   padding: 15px 0; /* Ajuste o padding para não ser muito grande */
-    flex-wrap: wrap; /* Importante para quebrar elementos em telas pequenas */
-    gap: 10px; /* Espaço entre os itens quando quebrarem */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    padding: 8px 0;
 }
 
 header nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 95%;
+    margin: 0 auto;
+}
+
+/* Compensa o header fixo no corpo (ajuste fino) */
+body {
+    padding-top: 68px;
 }
 
 /* --- LOGO NO TOPO --- */
@@ -109,15 +119,17 @@ header nav {
     background-color: var(--cor-primaria-hover);
 }
 
-/* --- 3. MENU RÁPIDO (Quick Menu) --- */
+/* --- 3. MENU RÁPIDO (grudado ao cabeçalho) --- */
 .quick-menu {
     position: sticky;
-    top: 80px; /* Ajuste: Altura do header + 1px */
-    z-index: 90;
+    top: 68px; /* mesma altura do header */
+    z-index: 998;
     background-color: var(--cor-branco);
+    border-top: none;
     border-bottom: 1px solid var(--cor-borda);
-    padding: 10px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    padding: 6px 0;
+    margin-top: 0;
     overflow-x: auto;
     white-space: nowrap;
 }
@@ -678,7 +690,7 @@ footer {
 
     /* Ajusta o topo do quick-menu no desktop */
     .quick-menu {
-        top: 85px; /* Altura do header no desktop + 1px */
+        top: 68px; /* Altura do header no desktop + 1px */
     }
 
     /* Layout do Formulário de Cliente */
