@@ -176,55 +176,56 @@ main {
     margin-bottom: 30px;
 }
 
+/* === CORREÇÃO PARA IMAGENS DOS MAIS PEDIDOS === */
 .destaque-card {
-    background-color: var(--cor-fundo);
+    background-color: var(--cor-branco);
     border: 1px solid var(--cor-borda);
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 10px;
     text-align: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.destaque-card h4 {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 5px 0;
-    color: var(--cor-texto-titulo);
-    white-space: nowrap; /* Impede que o nome quebre a linha */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     overflow: hidden;
-    text-overflow: ellipsis; /* Adiciona "..." se for muito longo */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+/* Mantém todas as imagens do mesmo tamanho e formato */
 .destaque-imagem-container {
-    position: relative;
     width: 100%;
-    aspect-ratio: 1/1; /* Imagem quadrada */
+    height: 150px;
+    border-radius: 8px;
     overflow: hidden;
-    border-radius: 5px;
-    margin-bottom: 5px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .destaque-imagem-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* Ajusta sem distorcer */
+    object-position: center;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
 }
 
-.destaque-card .add-cart-btn {
-    width: 100%;
-    padding: 8px 10px;
-    font-size: 14px;
-    margin-top: 8px;
-    background-color: var(--cor-primaria);
-    color: var(--cor-branco);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.destaque-imagem-container img:hover {
+    transform: scale(1.05);
 }
 
-.destaque-card .add-cart-btn:hover {
-    background-color: var(--cor-primaria-hover);
+/* Ajuste de responsividade */
+@media (max-width: 768px) {
+    .destaque-imagem-container {
+        height: 130px;
+    }
+}
+
+@media (max-width: 480px) {
+    .destaque-imagem-container {
+        height: 110px;
+    }
 }
 
 /* Search Bar */
