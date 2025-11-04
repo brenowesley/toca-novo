@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toca da Esfiha - Delivery Profissional</title>
+    <title>Toca da Esfiha - Peça Online e Receba em Casa!</title>
+    <meta name="description" content="Peça Esfihas Salgadas, Doces, Pizzas e Kibes online no Toca da Esfiha. A melhor esfiha da região com entrega rápida!">
+    <meta property="og:title" content="Toca da Esfiha - O Sabor que Chega na Sua Casa">
+    <meta property="og:description" content="Esfihas, Pastéis e Pizzas! Pedido rápido via WhatsApp.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="URL_DO_SEU_SITE_AQUI">
+    <meta property="og:image" content="URL_DA_SUA_IMAGEM_AQUI"> 
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,111 +17,162 @@
     
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+
+
 
     <header>
         <nav class="container">
            <div class="logo">
-    <img src="img/Gemini_Generated_Image_w1zk2iw1zk2iw1zk-removebg-preview.png" alt="Logo Toca da Esfiha" class="logo-img">
-</div>
+                <img src="img/Gemini_Generated_Image_w1zk2iw1zk2iw1zk-removebg-preview.png" alt="Logo Toca da Esfiha" class="logo-img">
+                <div class="logo-text">
+                    <h1 class="font-titulo">Toca da Esfiha</h1>
+                    <p class="font-corpo">Delivery Profissional</p>
+                </div>
+            </div>
             <div class="contato-carrinho">
-                <span class="font-corpo telefone"></span>
-                <button id="cart-button" class="font-corpo">Carrinho (0)</button>
+                <span class="font-corpo telefone"></span> 
+                <button id="cart-button" class="font-corpo">Carrinho (<span id="cart-count">0</span>)</button>
             </div>
         </nav>
     </header>
 
 <nav id="quick-menu" class="quick-menu">
     <div class="container">
-        <a href="#esfihas-salgadas">Esfihas Salgadas</a>
-        <a href="#esfihas-doces">Esfihas Doces</a>
-        <a href="#salgados">Salgados</a> <a href="#mini-pizza">mini-pizza</a> <a href="#pizzas-grandes">pizzas-grandes</a> <a href="#bebidas">Bebidas</a>
-    </div>
+        </div>
 </nav>
-    <main class="container">
-        
-        <section id="cardapio-section">
-            <div class="destaque">
-                <h2 class="font-titulo">Bem-vindo(a) à Toca da Esfiha!</h2>
-                <p class="font-corpo">Selecione e saboreie o prazer de uma esfiha, pizza ou salgado feito na hora. Qualidade e sabor que só a Toca tem!</p>
-            </div>
+
+    <main>
+        <div class="container">
             
-            <div id="cardapio-container">
-                </div>
-        </section>
+            <div id="aviso-horario"></div>
 
-        <section id="checkout-section" style="display: none;">
-            <h1 class="font-titulo">Finalizar Pedido</h1>
+            <section id="destaques-section" class="destaque">
+                <h2 class="font-titulo">🔥 Mais Pedidos da Semana</h2>
+                <div id="destaques-container" class="destaques-grid">
+                    </div>
+
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="🔍 Buscar esfiha, pizza, quibe...">
+                </div>
+            </section>
             
-            <div id="resumo-carrinho" class="resumo-carrinho">
+            <section id="cardapio-section">
+                </section>
+
+            <section id="checkout-section" style="display: none;">
+                <h2 class="font-titulo">🛒 Seu Pedido</h2>
+                
+                <div id="resumo-carrinho" class="resumo-carrinho">
+    </div>
+
+                <div class="client-form-container">
+                    <h2 class="font-titulo">Informe Seus Dados</h2>
+                    <form id="client-data-form">
+                        
+                        <h3 class="font-titulo">Dados Pessoais</h3>
+                        <div class="form-group">
+                            <div class="form-field">
+                                <label for="nome">Seu Nome Completo *</label>
+                                <input type="text" id="nome" name="nome" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="telefone_cliente">Telefone (DDD + Número) *</label>
+                                <input type="tel" id="telefone_cliente" name="telefone_cliente" required pattern="[0-9]{11}" placeholder="Ex: 73981139131">
+                            </div>
+                        </div>
+
+                        <h3 class="font-titulo">Endereço de Entrega</h3>
+                        <div class="form-group">
+                            <div class="form-field">
+                                <label for="rua">Rua/Avenida *</label>
+                                <input type="text" id="rua" name="rua" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="numero">Número *</label>
+                                <input type="text" id="numero" name="numero" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-field">
+                                <label for="bairro">Bairro *</label>
+                                <input type="text" id="bairro" name="bairro" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="ponto_referencia">Ponto de Referência</label>
+                                <input type="text" id="ponto_referencia" name="ponto_referencia">
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label for="complemento">Complemento (Apto, Bloco, etc.)</label>
+                            <input type="text" id="complemento" name="complemento">
+                        </div>
+                        
+                        <button type="button" id="btn-localizacao" class="btn-localizacao">
+                             📍 Pegar Localização
+                       </button>
+                          <p id="status-localizacao" class="status-localizacao">Localização ainda não capturada.</p>
+
+                        
+                        <h3 class="font-titulo">Forma de Pagamento</h3>
+                        <div class="form-field">
+                            <label for="pagamento">Selecione a Forma de Pagamento *</label>
+                            <select id="pagamento" name="pagamento" required>
+                                <option value="" disabled selected>Selecione a Forma de Pagamento</option>
+                                <option value="PIX">PIX</option>
+                                <option value="Cartão de Crédito/Débito (na Entrega)">Cartão de Crédito/Débito (na Entrega)</option>
+                                <option value="Dinheiro (Pagamento na Entrega)">Dinheiro (Pagamento na Entrega)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-field" id="troco-group" style="display: none;">
+                            <label for="troco_para">Precisa de Troco? (Para qual valor?)</label>
+                            <input type="text" id="troco_para" name="troco_para" placeholder="Ex: R$ 50,00 (Deixe em branco se for valor exato)">
+                        </div>
+
+                        <button type="submit" class="finalizar-whatsapp-btn">
+                            ✅ Enviar Pedido via WhatsApp
+                        </button>
+                        
+                        <button type="button" id="voltar-cardapio-btn" class="voltar-btn">
+                            ← Voltar ao Cardápio
+                        </button>
+                        
+                    </form>
                 </div>
-
-            <form id="client-data-form" class="client-form">
-    <h3 class="font-titulo">Seus Dados</h3>
-    
-    <div class="form-group">
-        <div class="form-field">
-            <label for="nome">Nome Completo:</label>
-            <input type="text" id="nome" name="nome" required>
+            </section>
         </div>
-        <div class="form-field">
-            <label for="telefone_cliente">Telefone (c/ WhatsApp):</label>
-            <input type="tel" id="telefone_cliente" name="telefone_cliente" required>
-        </div>
-    </div>
-    
-    <h3 class="font-titulo">Endereço de Entrega</h3>
-    
-    <div class="form-group">
-        <div class="form-field">
-            <label for="bairro">Bairro:</label>
-            <input type="text" id="bairro" name="bairro" required>
-        </div>
-        <div class="form-field">
-            <label for="rua">Rua/Avenida:</label>
-            <input type="text" id="rua" name="rua" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="form-field form-field-numero"> <label for="numero">Número:</label>
-            <input type="text" id="numero" name="numero" required>
-        </div>
-        <div class="form-field">
-            <label for="complemento">Complemento/Referência (Opcional):</label>
-            <input type="text" id="complemento" name="complemento">
-        </div>
-    </div>
-
-    <button type="button" id="btn-localizacao" class="btn-localizacao">
-         📍 Pegar Localização
-   </button>
-      <p id="status-localizacao" class="status-localizacao">Localização ainda não capturada.</p>
-
-    
-    <h3 class="font-titulo">Forma de Pagamento</h3>
-    <select id="pagamento" name="pagamento" required>
-        <option value="" disabled selected>Selecione a Forma de Pagamento</option>
-        <option value="PIX">PIX</option>
-        <option value="Cartão de Crédito/Débito (na entrega)">Cartão de Crédito/Débito (na entrega)</option>
-        <option value="Dinheiro (na entrega)">Dinheiro (na entrega)</option>
-    </select>
-
-    <button type="submit" class="finalizar-whatsapp-btn">
-        Enviar Pedido via WhatsApp
-    </button>
-    <button type="button" id="voltar-cardapio-btn" class="voltar-btn">
-        &larr; Voltar ao Cardápio
-    </button>
-</form>
-        </section>
-
     </main>
 
-    <footer>
-        <p class="font-corpo">© 2024 Toca da Esfiha - Todos os direitos reservados.</p>
-    </footer>
+    <section id="secao-pedido" class="secao-pedido" style="display: none;">
+    </section>
 
-    <script src="script.js"></script>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Toca da Esfiha. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+<!-- Modal de Quantidade -->
+<div id="modal-quantidade" class="modal-quantidade" aria-hidden="true">
+  <div class="modal-conteudo">
+    <h3 id="modal-nome-item"></h3>
+    <p id="modal-preco-item"></p>
+
+    <div class="quantidade-controle">
+      <button id="btn-diminuir" class="btn-qtd" type="button">−</button>
+      <span id="quantidade-atual">1</span>
+      <button id="btn-aumentar" class="btn-qtd" type="button">+</button>
+    </div>
+
+    <div class="modal-botoes">
+      <button id="confirmar-item" class="btn-confirmar" type="button">Adicionar</button>
+      <button id="cancelar-item" class="btn-cancelar" type="button">Cancelar</button>
+    </div>
+  </div>
+</div>
+    <script src="script.js" defer></script>
 </body>
+
 </html>
