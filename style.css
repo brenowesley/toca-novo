@@ -1086,12 +1086,50 @@ footer {
 }
 
 /* força o container de imagem não esticar verticalmente */
-.item-imagem-container,
 .destaque-imagem-container {
-  min-height: 0;
-  max-height: 160px;
-  overflow: hidden;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Mantém quadrado */
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff; /* Fundo branco caso a imagem não preencha */
 }
+
+.destaque-imagem-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Mantém proporção sem distorcer */
+    object-position: center center; /* Centraliza a imagem */
+    transition: transform 0.3s ease;
+}
+
+.destaque-imagem-container img:hover {
+    transform: scale(1.05); /* Efeito leve no hover */
+}
+
+/* Em celulares pequenos, reduz um pouco o tamanho */
+@media (max-width: 480px) {
+    .destaques-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .destaque-imagem-container {
+        aspect-ratio: 1 / 1;
+        border-radius: 8px;
+    }
+
+    .destaque-imagem-container img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+}
+
 
 /* 6) Evita que títulos/descrições quebrem o layout */
 .mais-vendido-card h3,
