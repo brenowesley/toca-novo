@@ -614,8 +614,8 @@ document.addEventListener('DOMContentLoaded', () => {
         mensagem += `*🧾 ITENS DO PEDIDO (${totalItens} itens):*\n`;
 
         Object.values(carrinho).forEach(item => {
-            const subtotal = item.preco * item.quantidade;
-            mensagem += `- ${item.quantidade}x ${item.nome} \n    (Unit: ${formatarMoeda(item.preco)}) | Subtotal: ${formatarMoeda(subtotal)}\n`;
+            // Apenas a quantidade e o nome do item. Os valores (preco/subtotal) foram removidos.
+            mensagem += `- ${item.quantidade}x ${item.nome}\n`; 
         });
 
         mensagem += `\n*TOTAL: ${formatarMoeda(calcularTotalCarrinho())}*\n`;
