@@ -1,0 +1,7 @@
+{
+  "name": "Toca da Esfiha Delivery",
+  "description": "Premium delivery app for Toca da Esfiha in Barra Grande. Order esfihas, pizzas, and drinks directly via WhatsApp.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
